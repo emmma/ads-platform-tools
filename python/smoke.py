@@ -9,10 +9,12 @@ ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 # LinkedIn API
 LINKEDIN_API_BASE_URL = 'https://api.linkedin.com/v1'
 
+
 def main():
     results = get_user(ACCESS_TOKEN)
     print results
     return
+
 
 def get_user(token):
     """
@@ -24,7 +26,8 @@ def get_user(token):
         'Authorization': 'Bearer {token}'.format(token=token)
     }
 
-    response = requests.get(LINKEDIN_API_BASE_URL + '/people/~?format=json', headers=headers)
+    response = requests.get(LINKEDIN_API_BASE_URL + '/people/~?format=json',
+                            headers=headers)
 
     if response is not None:
         results = response.json()
