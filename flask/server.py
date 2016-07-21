@@ -5,7 +5,7 @@ import requests
 
 from flask import request
 
-# Obtain your Client ID and Client secret from LinkedIn at https://www.linkedin.com/developer/apps/
+# Obtain Client ID and Client secret https://www.linkedin.com/developer/apps/
 CLIENT_ID = os.environ['CLIENT_ID']
 CLIENT_SECRET = os.environ['CLIENT_SECRET']
 
@@ -15,6 +15,7 @@ REDIRECT_URL = 'http://127.0.0.1:5000/callback'
 # LinkedIn URLs
 LINKEDIN_OAUTH_URL = 'https://www.linkedin.com/oauth/v2'
 LINKEDIN_API_BASE_URL = 'https://api.linkedin.com/v1'
+
 
 def oauth(request):
     """
@@ -31,6 +32,7 @@ def oauth(request):
     name = get_user(access_token)[0]
 
     return name
+
 
 def get_access_token(code, state):
     """
@@ -53,9 +55,7 @@ def get_access_token(code, state):
         'client_secret': CLIENT_SECRET
     }
 
-    response = requests.post(url, 
-        data=payload,
-        headers=headers)
+    response = requests.post(url, data=payload, headers=headers)
 
     if response is not None:
         results = response.json()
@@ -65,6 +65,7 @@ def get_access_token(code, state):
             token = None
             print '[CUSTOM] Access token not found in results'
     return token
+
 
 def get_user(token):
     """

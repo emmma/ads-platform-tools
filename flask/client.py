@@ -4,7 +4,7 @@ import os
 import requests
 import webbrowser
 
-# Obtain your Client ID and Client secret from LinkedIn at https://www.linkedin.com/developer/apps/
+# Obtain Client ID and Client secret https://www.linkedin.com/developer/apps/
 CLIENT_ID = os.environ['CLIENT_ID']
 CLIENT_SECRET = os.environ['CLIENT_SECRET']
 
@@ -14,9 +14,11 @@ REDIRECT_URL = 'http://127.0.0.1:5000/callback'
 # LinkedIn URLs
 LINKEDIN_OAUTH_URL = 'https://www.linkedin.com/oauth/v2'
 
+
 def prompt():
     get_authorization_code()
     return
+
 
 def get_authorization_code():
     """

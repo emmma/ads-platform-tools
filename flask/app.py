@@ -13,6 +13,7 @@ def index():
     client.prompt()
     return render_template('index.html')
 
+
 @app.route('/callback', methods=['GET'])
 def oauth():
     name = None
