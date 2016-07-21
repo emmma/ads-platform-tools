@@ -63,4 +63,4 @@ You can go to a web browser of your choice and type in the URL provided (e.g. ht
 * Optimize error handling for retry() for HTTP 4XX and HTTP 5XX errors
 * Set up better logging for errors and exceptions
 * Set up automated tests: capture exceptions and edge cases
-* Make additional calls third-party APIs
+* Make additional calls LinkedIn APIs
