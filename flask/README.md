@@ -8,7 +8,6 @@ Sample Flask app that integrates with LinkedIn APIs
 
 # Demo
 This sample app has been configured to run on localhost.
-```
 
 ### Installation
 If you'd like to contribute to the project or try an unreleased version of the sample Flask app locally, run the following commands in your terminal:
@@ -60,7 +59,7 @@ You can go to a web browser of your choice and type in the URL provided (e.g. ht
 * [Deploying Python and Django apps on Heroku](https://devcenter.heroku.com/articles/deploying-python)
 
 ## TODO
-* Optimize error handling for retry() for HTTP 4XX and HTTP 5XX errors
+* Add retry logic for HTTP 4XX and HTTP 5XX errors
 * Set up better logging for errors and exceptions
 * Set up automated tests: capture exceptions and edge cases
 * Make additional calls LinkedIn APIs
