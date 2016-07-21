@@ -10,7 +10,7 @@ CLIENT_ID = os.environ['CLIENT_ID']
 CLIENT_SECRET = os.environ['CLIENT_SECRET']
 
 # LinkedIn redirect URIs must be configured in app settings
-REDIRECT_URL = 'http://127.0.0.1:5000/oauth'
+REDIRECT_URL = 'http://127.0.0.1:5000/callback'
 
 # LinkedIn URLs
 LINKEDIN_OAUTH_URL = 'https://www.linkedin.com/oauth/v2'
@@ -28,9 +28,9 @@ def oauth(request):
     print "Access token is"
     print(access_token)
 
-    results = get_user(access_token)
-    print results
-    return
+    name = get_user(access_token)[0]
+
+    return name
 
 def get_access_token(code, state):
     """
@@ -81,6 +81,12 @@ def get_user(token):
 
     if response is not None:
         results = response.json()
+        user_first_name = results['firstName']
+        user_last_name = results['lastName']
+        user_headline = results['headline']
     else:
         results = None
-    return results
+        user_first_name = None
+        user_last_name = None
+        user_headline = None
+    return user_first_name, user_last_name, user_headline

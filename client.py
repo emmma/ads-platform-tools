@@ -9,7 +9,7 @@ CLIENT_ID = os.environ['CLIENT_ID']
 CLIENT_SECRET = os.environ['CLIENT_SECRET']
 
 # LinkedIn redirect URIs must be configured in app settings
-REDIRECT_URL = 'http://127.0.0.1:5000/oauth'
+REDIRECT_URL = 'http://127.0.0.1:5000/callback'
 
 # LinkedIn URLs
 LINKEDIN_OAUTH_URL = 'https://www.linkedin.com/oauth/v2'
@@ -35,6 +35,3 @@ def get_authorization_code():
     redirect_url = response.url
     webbrowser.open(redirect_url, new=0, autoraise=True)
     return
-
-if __name__ == '__main__':
-    main()

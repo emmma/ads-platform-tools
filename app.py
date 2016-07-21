@@ -13,10 +13,13 @@ def index():
     client.prompt()
     return render_template('index.html')
 
-@app.route('/oauth', methods=['GET'])
+@app.route('/callback', methods=['GET'])
 def oauth():
-    server.oauth(request)
-    return render_template('results.html')
+    name = None
+    name = server.oauth(request)
+    return render_template('results.html', name=name)
+
+# TODO Create separate route so code and state is not displayed in URL
 
 if __name__ == '__main__':
     main()
