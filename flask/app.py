@@ -1,6 +1,8 @@
 from flask import Flask
-from flask import request
 from flask import render_template
+from flask import redirect
+from flask import request
+from flask import url_for
 
 import client
 import server
@@ -15,12 +17,16 @@ def index():
 
 
 @app.route('/callback', methods=['GET'])
-def oauth():
-    name = None
+def oauth(name=None):
     name = server.oauth(request)
+    return redirect(url_for('hello', name=name))
+
+
+@app.route('/hello')
+@app.route('/hello/<name>')
+def hello(name):
     return render_template('results.html', name=name)
 
-# TODO Create separate route so code and state is not displayed in URL
-
 if __name__ == '__main__':
-    main()
+    app.debug = True
+    app.run()
