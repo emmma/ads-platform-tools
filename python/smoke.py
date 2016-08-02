@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import os
 import requests
 
@@ -10,7 +11,9 @@ ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 LINKEDIN_API_BASE_URL = 'https://api.linkedin.com/v1'
 
 
-def main():
+def main(options):
+    file =  options.file_name
+    print file
     results = get_user(ACCESS_TOKEN)
     print results
     return
@@ -41,5 +44,12 @@ def get_user(token):
         user_headline = None
     return user_first_name, user_last_name, user_headline
 
+def input():
+    p = argparse.ArgumentParser(description='Reads .yaml of API endpoints METHOD RESOURCE')
+    p.add_argument('-f', '--file', required=True, dest='file_name', help='file location')
+    args = p.parse_args()
+    return args
+
 if __name__ == '__main__':
-    main()
+    options = input()
+    main(options)
