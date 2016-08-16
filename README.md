@@ -14,3 +14,4 @@ This project is currently in active development.  Please expect breaking changes
 * [LinkedIn Developers](https://developer.linkedin.com/) - API docs and resources
 * [Flask](http://flask.pocoo.org/) - Python web development framework
 * [Python](https://www.python.org/) - tools and utilities developed using Python 2.7.6
+* [OAuth 2.0](http://oauth.net/2/) - OAuth protocol used for authorization of resources
