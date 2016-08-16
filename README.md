@@ -2,10 +2,10 @@
 LinkedIn brings the power of the world's largest professional network to your apps.  To learn more about current Partnership Programs on the LinkedIn API platform, please see [https://developer.linkedin.com/partner-programs](https://developer.linkedin.com/partner-programs).
 
 ## Flask
-Sample Flask app that integrates with LinkedIn APIs
+Sample Flask app that integrates with LinkedIn APIs. This project is intended for demo purposes and app should not be used for production.
 
 ## Python
-Sample tools and utilities for LinkedIn Ads APIs
+Sample tools and utilities for LinkedIn Ads APIs.
 
 ## Comments
 This project is currently in active development.  Please expect breaking changes in functionality pre-official release to API partners.
