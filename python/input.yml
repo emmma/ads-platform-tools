@@ -1,0 +1,4 @@
+people:
+  - verb: get
+    path: "/people/~"
+    parameters: "format=json"
