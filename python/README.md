@@ -25,5 +25,6 @@ export ACCESS_TOKEN='<value>'
 To run the python script, type the following command in terminal:
 
 ```bash
-python smoke.py
+python smoke.py -f input.yml
 ```
+Sample input.yml is provided for demo purposes.
