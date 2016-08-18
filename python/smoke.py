@@ -3,79 +3,87 @@
 import argparse
 import os
 import requests
+import requests.packages.urllib3
 import yaml
+
+from time import sleep
+
+requests.packages.urllib3.disable_warnings()
 
 # OAuth 2.0 bearer token to make API calls on behalf of LinkedIn member
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 
 # LinkedIn API
-LINKEDIN_API_BASE_URL = 'https://api.linkedin.com/v1'
+LINKEDIN_API_BASE_URL = 'https://api.linkedin.com/v2'
 
 
 def main(options):
-    file =  options.file_name
-    print "Reading from " + file
+    file = options.file_name
     f = open(file)
     dataMap = yaml.safe_load(f)
     f.close()
-    results = get_user(ACCESS_TOKEN, dataMap)
+    results = get_resource(dataMap)
     print results
     return
 
 
-def get_account(dataMap):
-    """ Returns results from adAccounts resource"""
-    return
+def get_resource(dataMap):
+    """ Returns results from resources in input yaml file"""
+
+    for resource in dataMap:
+        for item in dataMap[resource]:
+            verb = item['verb']
+            path = item['path']
+            parameters = item['parameters']
+            _line()
+            url = _url(path, parameters)
+            results = make_request(url, verb)
+    return results
 
 
-def get_user(token, dataMap):
-    """Returns the results from people API"""
+def make_request(url, verb):
     headers = {
         'Host': 'api.linkedin.com',
         'Connection': 'Keep-Alive',
-        'Authorization': 'Bearer {token}'.format(token=token)
+        'Authorization': 'Bearer {token}'.format(token=ACCESS_TOKEN)
     }
 
-    resource = _url(dataMap['people'][0]['path'] + '?' + dataMap['people'][0]['parameters'])
-    print resource
-    
-    if dataMap['people'][0]['verb'] == 'get':
-        response = requests.get(resource,
-                                headers=headers)
-
-    if response is not None:
-        results = response.json()
-        user_first_name = results['firstName']
-        user_last_name = results['lastName']
-        user_headline = results['headline']
+    if verb == 'get' or 'finder':
+        try:
+            response = requests.get(url, headers=headers)
+        except requests.exceptions.ConnectionError:
+            sleep(5)
     else:
-        results = None
-        user_first_name = None
-        user_last_name = None
-        user_headline = None
-    return user_first_name, user_last_name, user_headline
+        response = None
+
+    if response is not None and response.status_code is not 400:
+        print response.json()
+    return
 
 
 def input():
     """Gets input from external user-specified yml file"""
-    p = argparse.ArgumentParser(description='Reads .yml of API endpoints METHOD RESOURCE')
-    p.add_argument('-f', '--file', required=True, dest='file_name', help='file location')
+    p = argparse.ArgumentParser(description='Makes API calls')
+    p.add_argument('-f', '--file', required=True,
+                   dest='file_name', help='file location')
     args = p.parse_args()
     return args
 
 
-def _datamap(dataMap):
-    """Returns help information about the format of input yaml"""
-    print "dataMap is a ", type(dataMap), dataMap
-    print "people items are", type(dataMap['people']), dataMap['people']
-    print "ads items are", type(dataMap['accounts']), dataMap['accounts']
-    print "dataMap['people'][0]['verb'] is", type(dataMap['people'][0]['verb']), dataMap['people'][0]['verb']
-    return
-
-
-def _url(path):
+def _url(path, parameters):
     """Builds the API URL for the resource"""
-    return LINKEDIN_API_BASE_URL + path
+    if parameters is not None:
+        url = LINKEDIN_API_BASE_URL + path + str(parameters)
+    else:
+        url = LINKEDIN_API_BASE_URL + path
+    print url
+    _line()
+    return url
+
+
+def _line():
+    print "-------------------------"
+    return
 
 
 if __name__ == '__main__':
