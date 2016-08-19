@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
 import argparse
+import json
 import os
+import pprintpp
 import requests
 import requests.packages.urllib3
 import yaml
@@ -22,8 +24,9 @@ def main(options):
     f = open(file)
     dataMap = yaml.safe_load(f)
     f.close()
-    results = get_resource(dataMap)
-    print results
+    get_resource(dataMap)
+#    with open("output.json", "w") as f:
+#        f.write(results)
     return
 
 
@@ -57,7 +60,7 @@ def make_request(url, verb):
         response = None
 
     if response is not None and response.status_code is not 400:
-        print response.json()
+        pprintpp.pprint(response.json())
     return
 
 
@@ -82,7 +85,7 @@ def _url(path, parameters):
 
 
 def _line():
-    print "-------------------------"
+    print "--------------------------------------------------"
     return
 
 
