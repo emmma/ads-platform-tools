@@ -4,24 +4,24 @@
 #    parameters: "format=json"
 
 users:
-  - verb: finder
+  - verb: FINDER
     path: "/adAccountUsersV2?"
     parameters: "q=account&account=urn:li:sponsoredAccount:500055926"
 
 accounts:
-  - verb: finder
+  - verb: FINDER
     path: "/adAccountsV2?"
     parameters: "q=statuses&statuses=ACTIVE"
 
-  - verb: get
+  - verb: GET
     path: "/adAccountsV2/"
     parameters: 500055926
 
 campaigns:
-  - verb: get
+  - verb: GET
     path: "/adCampaignsV2/"
     parameters: 112844343
 
-  - verb: finder
+  - verb: FINDER
     path: "/adCampaignsV2?"
     parameters: "q=statuses&statuses=ACTIVE"
