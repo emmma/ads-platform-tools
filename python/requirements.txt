@@ -1,4 +1,4 @@
-PyYAML==3.11
+PyYAML==5.4
 argparse==1.2.1
 pep8==1.7.0
 pyOpenSSL==16.0.0
